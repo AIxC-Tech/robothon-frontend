@@ -121,9 +121,8 @@ export default function RadarBackground() {
   return (
     <>
       <div id="grid" />
-      <div id="map">
-        <canvas id="radar" ref={ref} />
-      </div>
+      {/* 全屏雷达扫描动画已隐藏。如需恢复，取消下面这行的注释：
+          <div id="map"><canvas id="radar" ref={ref} /></div> */}
     </>
   )
 }
