@@ -59,8 +59,9 @@ export default function AuthStrip() {
 
   return (
     <div id="auth">
-      <div className="a-brand">FFAI ROBOTHON</div>
-      <div className="a-sub">{t('Summer 2026 · MuJoCo Embodied-AI Hackathon', '2026 夏季 · MuJoCo 具身智能黑客松')}</div>
+      <div className="a-brand">
+        FFAI ROBOTHON <span className="a-yr">{t('Summer 2026', '2026 夏季')}</span>
+      </div>
       <div className="a-row">
         <span className="a-dot" />
         <span className="a-status">{t('Registration Open', '报名进行中')}</span>
