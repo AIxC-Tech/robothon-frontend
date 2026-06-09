@@ -1,6 +1,10 @@
-// Backend base URL. Override with VITE_API_BASE (e.g. the deployed backend);
-// defaults to the local dev backend.
-export const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8787'
+// Backend base URL.
+//  - unset (dev): defaults to the local dev backend.
+//  - set to "" (prod): API calls become relative (same-origin), so the same
+//    build works behind any domain/IP when nginx proxies /api to the backend.
+//  - set to a URL: calls hit that absolute backend.
+// `??` (not `||`) so an explicit empty string is preserved as "relative".
+export const API_BASE = import.meta.env.VITE_API_BASE ?? 'http://localhost:8787'
 
 // URL encoded into the share-card QR code. Set VITE_SHARE_URL to the public site/registration link.
 export const SHARE_URL = import.meta.env.VITE_SHARE_URL || 'https://robothon.ff.com'
