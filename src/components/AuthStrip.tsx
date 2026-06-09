@@ -60,7 +60,7 @@ export default function AuthStrip() {
   return (
     <div id="auth">
       <div className="a-brand">
-        FFAI ROBOTHON <span className="a-yr">{t('Summer 2026', '2026 夏季')}</span>
+        FFAI Robothon <span className="a-yr">{t('Summer 2026', '2026 夏季')}</span>
       </div>
       <div className="a-row">
         <span className="a-dot" />
