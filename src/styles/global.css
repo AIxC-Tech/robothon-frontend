@@ -214,6 +214,7 @@ body{
   display:flex;align-items:center;justify-content:center;color:var(--ink);font-size:12px;
   text-decoration:none;transition:.15s;}
 .social a:hover{background:var(--ink);color:#03130a;}
+.social a.disabled{opacity:.35;pointer-events:none;cursor:default;}
 #hint{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:58;font-size:12px;
   color:var(--ink);opacity:.7;letter-spacing:2px;animation:blink 2s infinite;}
 /* top-right cluster: language switch + countdown, side by side */
