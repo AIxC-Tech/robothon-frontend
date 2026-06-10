@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLang } from '../context/LangContext'
 
-// 报名 6.16 00:00 (UTC+8) 开始；报名 6.21 24:00 (UTC+8) 截止
+// 提交 6.16 00:00 (UTC+8) 开启；提交 6.21 24:00 (UTC+8) 截止
 const REG_OPEN = Date.UTC(2026, 5, 15, 16, 0, 0) // 6.16 00:00 UTC+8 == 6.15 16:00 UTC
 const REG_CLOSE = Date.UTC(2026, 5, 21, 16, 0, 0) // 6.21 24:00 UTC+8 == 6.21 16:00 UTC
 
@@ -28,11 +28,11 @@ export default function Countdown() {
   let label: string
   let time: string
   if (now < REG_OPEN) {
-    // 报名尚未开始：倒数到报名开始
+    // 提交尚未开启：倒数到提交开启
     label = t('Submissions open in', '距离提交开启')
     time = fmt(REG_OPEN - now)
   } else if (now < REG_CLOSE) {
-    // 报名进行中：倒数到报名截止
+    // 提交进行中：倒数到提交截止
     label = t('Submissions close in', '距离提交截止')
     time = fmt(REG_CLOSE - now)
   } else {
