@@ -7,7 +7,7 @@ export default function CasesWindow() {
   const wm = useWindows()
   return (
     <Window id="w-cases" title="cases">
-      <div className="winh">{t('Demo Cases', '演示案例')}</div>
+      <div className="winh">{t('Showcase', '演示案例')}</div>
       <div className="caserow" onClick={() => wm.open('w-dexhand')}>
         <span className="caseic">▶</span>
         <div>

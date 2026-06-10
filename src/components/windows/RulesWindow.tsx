@@ -4,11 +4,11 @@ import { useLang } from '../../context/LangContext'
 const RULES: { en: [string, string]; zh: [string, string] }[] = [
   {
     en: ['Theme', 'Build a MuJoCo-based robot simulator, task scenario or data-collection system; submit a runnable simulation task, interactive system or data-collection environment.'],
-    zh: ['主题', '基于 MuJoCo 构建机器人仿真模拟器、任务场景或数据采集系统；提交一个可运行的模拟任务、交互系统或数据采集环境。'],
+    zh: ['主题', '基于 MuJoCo 构建可运行的机器人仿真器、任务场景或数据采集系统。'],
   },
   {
     en: ['Embodiment', 'Any embodiment: robotic arms, mobile robots, quadrupeds, humanoids, grippers, autonomous vehicles, dexterous / multi-finger hands, and more.'],
-    zh: ['本体', '任意本体：机械臂、移动机器人、四足、人形、夹爪、无人车、灵巧手 / 多指机械手等。'],
+    zh: ['本体', '任意本体：机械臂、移动机器人、四足机器人、人形机器人、夹爪、无人车、灵巧手 / 多指机械手等。'],
   },
   {
     en: ['Eligibility', 'Any agent is allowed (Claude Code / Codex / Gemini CLI / Cursor / Kimi / your own, etc.); note the tools used on submission.'],
@@ -16,10 +16,10 @@ const RULES: { en: [string, string]; zh: [string, string] }[] = [
   },
   {
     en: ['Tech Stack', 'MuJoCo as the primary physics engine; make full use of MJCF, collisions, joints, sensors and actuators (one-line pip install, all platforms, no GPU).'],
-    zh: ['技术栈', '以 MuJoCo 为主要物理仿真引擎，鼓励充分使用 MJCF、碰撞、关节、传感器、执行器（pip 一行安装、全平台、免 GPU）。'],
+    zh: ['技术栈', '以 MuJoCo 为主要物理仿真引擎，鼓励充分使用 MJCF、碰撞、关节、传感器、执行器（pip 一行安装、全平台、无需 GPU）。'],
   },
   {
-    en: ['Deliverables', 'Code repo + run instructions (dependencies / install / launch / controls) + MuJoCo scene & robot model + demo video (1–3 min, produced by running the submitted code) + project writeup.'],
+    en: ['Deliverables', 'Code repo + run instructions (dependencies / install / launch / controls) + MuJoCo scene & robot model + demo video (1–3 min, produced by running the submitted code) + project write-up.'],
     zh: ['提交物', '代码仓库 + 运行说明（依赖 / 安装 / 启动 / 操作方式）+ MuJoCo 场景与模型 + Demo 视频（1–3 分钟，由提交代码运行产生）+ 项目说明。'],
   },
   {

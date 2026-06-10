@@ -20,7 +20,7 @@ const SCRIPTS: { en: string; zh: string; o: WinId }[] = [
   { en: 'Leaderboard', zh: '排行榜', o: 'w-leaderboard' },
   { en: 'MuJoCo', zh: 'MuJoCo', o: 'w-rules' },
   { en: 'Dexterous', zh: '灵巧手', o: 'w-scoring' },
-  { en: 'Teleop', zh: '遥操', o: 'w-rules' },
+  { en: 'Teleop', zh: '遥操作', o: 'w-rules' },
   { en: 'Data Capture', zh: '数据采集', o: 'w-rules' },
   { en: 'Deploy', zh: '部署', o: 'w-term' },
   { en: 'Random', zh: '随机', o: 'w-term' },

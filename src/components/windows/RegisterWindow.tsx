@@ -31,9 +31,9 @@ const COPY: Record<Lang, Copy> = {
   zh: {
     nickname: '你好，欢迎报名 FFAI Robothon。我是 AI 报名助手。请问你想使用的参赛昵称是？',
     agent: (n) => `收到，昵称「${n}」。这次你计划使用哪个 AI agent / 工具？(Claude Code / Codex / Gemini CLI / Cursor / Kimi / 自研)`,
-    direction: '你想挑战的方向是？(遥操 / 长程任务 / 数据采集 / 灵巧手 / 实际场景，或自由发挥)',
+    direction: '你想挑战的方向是？(遥操作 / 长程任务 / 数据采集 / 灵巧手 / 实际场景，或自由发挥)',
     email: '最后留一个邮箱地址吧，方便我们通知你成绩。',
-    invalidEmail: (v) => `「${v}」不是有效的邮箱地址，请重新输入一个有效邮箱（如 you@example.com）。`,
+    invalidEmail: (v) => `「${v}」不是有效的邮箱地址，请重新输入正确的邮箱（如 you@example.com）。`,
     success: (id) => `报名成功 ✓ 你的参赛 ID 是：${id}。比赛将于 6 月 16 日开赛，记得关注实时排行榜！`,
     duplicate: (id) => `你已经报名过了 ✓ 你的参赛 ID 是：${id}。记得关注实时排行榜！`,
     error: '抱歉，保存报名时出错了，请稍后再试。',

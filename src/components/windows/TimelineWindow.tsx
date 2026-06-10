@@ -4,15 +4,15 @@ import { useLang } from '../../context/LangContext'
 const ITEMS: { d: { en: string; zh: string }; p: { en: string; zh: string } }[] = [
   {
     d: { en: '6.10（Wed)', zh: '6.10（周三）' },
-    p: { en: 'Announcement; landing page opens for registration; code repo goes public.', zh: '官宣，落地页开放注册，代码仓库公开。' },
+    p: { en: 'Announcement; landing page opens for registration; code repo goes public.', zh: '正式公布，落地页开放注册，代码仓库公开。' },
   },
   {
     d: { en: '6.10 – 6.15', zh: '6.10 – 6.15' },
-    p: { en: 'Community and social channels open; warm-up events run; participants can start preparing.', zh: '社群、社媒开放并举办预热活动，可提前准备。' },
+    p: { en: 'Community and social channels open; warm-up events run; participants can start preparing.', zh: '社群与社交媒体开放并举办预热活动，参赛者可提前准备。' },
   },
   {
     d: { en: '6.16（Tue)', zh: '6.16（周二）' },
-    p: { en: 'Contest officially begins; submission channel opens; hackathon launch event.', zh: '正式开赛，提交通道开启，黑客松发布会。' },
+    p: { en: 'Contest officially begins; submission channel opens; hackathon launch event.', zh: '正式开赛，提交通道开启，举办黑客松发布会。' },
   },
   {
     d: { en: '6.16 – 6.21', zh: '6.16 – 6.21' },
@@ -24,7 +24,7 @@ const ITEMS: { d: { en: string; zh: string }; p: { en: string; zh: string } }[] 
   },
   {
     d: { en: '6.22 20:00', zh: '6.22 20:00' },
-    p: { en: 'Final judging complete; awards ceremony; monthly-series plans announced.', zh: '终审完成，颁奖发布会，月赛计划公布。' },
+    p: { en: 'Final judging complete; awards ceremony; monthly-series plans announced.', zh: '终审完成，举办颁奖典礼，公布后续月赛计划。' },
   },
 ]
 

@@ -28,7 +28,7 @@ import DataWindow from './components/windows/DataWindow'
 
 function Footer() {
   const { t } = useLang()
-  return <div id="foot">{t('© 2026 FFAI Robothon · MuJoCo Embodied-AI Hackathon', '© 2026 FFAI Robothon · MuJoCo 具身智能黑客松')}</div>
+  return <div id="foot">{t('© 2026 FFAI Robothon · Embodied-AI Hackathon', '© 2026 FFAI Robothon · 具身智能黑客松')}</div>
 }
 
 function AppShell() {

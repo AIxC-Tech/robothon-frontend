@@ -9,7 +9,7 @@ export default function BannerWindow() {
       <div className="banner-grid" />
       <div className="banner-fg">
         <h1>FFAI ROBOTHON</h1>
-        <div className="sub">{t('SUMMER 2026 · MuJoCo Embodied-AI Program', '2026 夏季 · MuJoCo 具身智能计划')}</div>
+        <div className="sub">{t('SUMMER 2026 · Embodied-AI Hackathon', '2026 Summer · 具身智能黑客松')}</div>
         <div className="usdc">
           {t('Total pool', '总奖池')} &nbsp; <b>8,000 USDC</b> &nbsp;{t('· 11 slots · 3×AI judges', '· 11 名额 · 3×AI 评审')}
         </div>

@@ -58,7 +58,7 @@ const FALLBACK_ROWS: Row[] = [
     descZh: '六足机器人受伤后自我重规划步态（语言触发故障注入）',
     badges: [
       { en: 'Excellence · 300 USDC', zh: '优秀作品奖 · 300 USDC', c: '' },
-      { en: '★ Best Human-AI Log · 400 USDC', zh: '★ 最佳人机共创记录 · 400 USDC', c: 'star' },
+      { en: '★ Best Human-AI Collab · 400 USDC', zh: '★ 最佳人机协作 · 400 USDC', c: 'star' },
     ], tool: 'Codex', score: 81.3, cls: '',
     email: 'hexapod@ffai.dev', reviews: EMPTY_REVIEWS,
   },

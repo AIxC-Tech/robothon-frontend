@@ -60,12 +60,12 @@ export default function AuthStrip() {
   return (
     <div id="auth">
       <div className="a-brand">
-        FFAI Robothon <span className="a-yr">{t('Summer 2026', '2026 夏季')}</span>
+        FFAI Robothon <span className="a-yr">{t('Summer 2026', '2026 Summer')}</span>
       </div>
       <div className="a-row">
         <span className="a-dot" />
         <span className="a-status">{t('Registration Open', '报名进行中')}</span>
-        <span className="a-pool">{t(' · 8,000 USDC pool', ' · 8,000 USDC 奖池')}</span>
+        <span className="a-pool">{t(' · 8,000 USDC Prize Pool', ' · 8,000 USDC 奖池')}</span>
       </div>
       <pre id="codetype">
         <code>{text}</code>
