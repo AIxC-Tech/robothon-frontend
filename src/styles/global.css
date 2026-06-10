@@ -211,11 +211,23 @@ body{
   font-size:11px;letter-spacing:.5px;color:var(--ink);white-space:nowrap;}
 .social{display:flex;gap:8px;}
 .botbar{position:fixed;bottom:10px;right:16px;z-index:700;display:flex;align-items:center;gap:12px;}
-.social a{width:30px;height:30px;border:1px solid var(--line);background:rgba(210,140,125,.08);
+.social a,.social .soc-btn{width:30px;height:30px;border:1px solid var(--line);background:rgba(210,140,125,.08);
   display:flex;align-items:center;justify-content:center;color:var(--ink);font-size:12px;
-  text-decoration:none;transition:.15s;}
-.social a:hover{background:var(--ink);color:#03130a;}
+  text-decoration:none;transition:.15s;cursor:pointer;padding:0;font-family:inherit;}
+.social a:hover,.social .soc-btn:hover{background:var(--ink);color:#03130a;}
 .social a.disabled{opacity:.35;pointer-events:none;cursor:default;}
+/* WeChat QR popover — matches the site's window language */
+.wechat-wrap{display:inline-flex;}
+.wechat-pop{position:fixed;right:16px;bottom:52px;z-index:800;width:172px;font-family:var(--font);
+  background:#212121;border:1px solid var(--line);box-shadow:0 12px 30px rgba(0,0,0,.55);}
+.wechat-pop .wb{display:flex;align-items:center;justify-content:space-between;padding:5px 10px;
+  background:var(--bar);border-bottom:1px solid var(--line);}
+.wechat-pop .wb .t{font-size:11px;color:var(--ink);letter-spacing:1px;}
+.wechat-pop .wb .x{color:var(--ink);cursor:pointer;font-size:15px;line-height:1;padding:0 2px;opacity:.85;}
+.wechat-pop .wb .x:hover{opacity:1;}
+.wechat-pop .wc{padding:12px;display:flex;flex-direction:column;align-items:center;gap:9px;}
+.wechat-pop img{display:block;width:100%;height:auto;border:1px solid var(--line);background:#fff;}
+.wechat-pop .cap{font-size:11px;color:var(--ink2);text-align:center;letter-spacing:.5px;}
 #hint{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:58;font-size:12px;
   color:var(--ink);opacity:.7;letter-spacing:2px;animation:blink 2s infinite;}
 /* top-right cluster: language switch + countdown, side by side */
