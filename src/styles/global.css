@@ -157,6 +157,10 @@ body{
 .cin input:focus{border-color:var(--ink);}
 .cin input::placeholder{color:rgba(210,140,125,.5);}
 .typing::after{content:"▋";color:var(--ink);animation:blink 1s steps(2) infinite;}
+/* click-to-copy participant id inside chat messages */
+#chatlog .copy-id{color:#e8b4a7;text-decoration:underline;text-underline-offset:2px;
+  cursor:pointer;font-weight:500;white-space:nowrap;}
+#chatlog .copy-id:hover{color:#f6e3dd;}
 @keyframes blink{50%{opacity:0}}
 
 /* generic content windows */

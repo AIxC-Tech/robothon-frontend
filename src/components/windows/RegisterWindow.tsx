@@ -54,12 +54,34 @@ interface Msg {
 // which field we're currently collecting
 type Step = 'nickname' | 'agent' | 'direction' | 'email'
 
+// UUID detection: split keeps the uuid as its own segment; test matches a full uuid
+const UUID_SPLIT = /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i
+const UUID_TEST = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
+// clipboard fallback for environments without navigator.clipboard
+function fallbackCopy(text: string, ack: () => void) {
+  const ta = document.createElement('textarea')
+  ta.value = text
+  ta.style.position = 'fixed'
+  ta.style.opacity = '0'
+  document.body.appendChild(ta)
+  ta.select()
+  try {
+    document.execCommand('copy')
+  } catch {
+    /* ignore */
+  }
+  document.body.removeChild(ta)
+  ack()
+}
+
 export default function RegisterWindow() {
-  const { lang } = useLang()
+  const { lang, t } = useLang()
   const [messages, setMessages] = useState<Msg[]>([])
   const [disabled, setDisabled] = useState(false)
   const [busy, setBusy] = useState(false)
   const [value, setValue] = useState('')
+  const [copiedId, setCopiedId] = useState<string | null>(null)
   const step = useRef<Step>('nickname')
   const answers = useRef({ nickname: '', agent: '', direction: '', email: '' })
   const logRef = useRef<HTMLDivElement>(null)
@@ -171,6 +193,36 @@ export default function RegisterWindow() {
     }
   }
 
+  // copy a participant id to the clipboard, with a brief "copied" acknowledgement
+  const copyUuid = (uuid: string) => {
+    const ack = () => {
+      setCopiedId(uuid)
+      setTimeout(() => setCopiedId((c) => (c === uuid ? null : c)), 1500)
+    }
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(uuid).then(ack).catch(() => fallbackCopy(uuid, ack))
+    } else {
+      fallbackCopy(uuid, ack)
+    }
+  }
+
+  // render message text, turning any participant UUID into a click-to-copy link
+  const renderText = (text: string) =>
+    text.split(UUID_SPLIT).map((part, i) =>
+      UUID_TEST.test(part) ? (
+        <span
+          key={i}
+          className="copy-id"
+          title={t('Click to copy', '点击复制')}
+          onClick={() => copyUuid(part)}
+        >
+          {copiedId === part ? t('Copied ✓', '已复制 ✓') : part}
+        </span>
+      ) : (
+        part
+      ),
+    )
+
   const placeholder = disabled ? CHAT_PH[lang].done : busy ? CHAT_PH[lang].busy : CHAT_PH[lang].idle
 
   return (
@@ -178,7 +230,7 @@ export default function RegisterWindow() {
       <div id="chatlog" ref={logRef}>
         {messages.map((m, i) => (
           <div className={`msg ${m.role}${m.typing ? ' typing' : ''}`} key={i}>
-            {m.text}
+            {renderText(m.text)}
           </div>
         ))}
       </div>
