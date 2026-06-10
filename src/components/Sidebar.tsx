@@ -9,8 +9,8 @@ const ITEMS: { en: string; zh: string; o: WinId }[] = [
   { en: 'Prizes', zh: '奖金', o: 'w-prizes' },
   { en: 'Timeline', zh: '日程', o: 'w-timeline' },
   { en: 'FAQ', zh: '常见问题', o: 'w-faq' },
-  { en: 'Leaderboard', zh: '排行榜', o: 'w-leaderboard' },
   { en: 'Cases', zh: '案例', o: 'w-cases' },
+  { en: 'Leaderboard', zh: '排行榜', o: 'w-leaderboard' },
 ]
 
 export default function Sidebar() {
