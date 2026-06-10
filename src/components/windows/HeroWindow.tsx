@@ -18,7 +18,7 @@ export default function HeroWindow() {
         {t(' prize pool.', ' 奖池。')}
       </div>
       <div className="hb">
-        <a className="hbtn primary" href="https://discord.gg/" target="_blank" rel="noreferrer">
+        <a className="hbtn primary" href="https://discord.gg/77FudM2XwM" target="_blank" rel="noreferrer">
           {t('Developer Community', '开发者社群')}
         </a>
         <a className="hbtn ghost" onClick={() => wm.open('w-leaderboard')}>
