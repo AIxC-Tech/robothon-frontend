@@ -87,6 +87,7 @@ body{
 #w-hero .hbtn.primary:hover{background:#a85a4d;}
 #w-hero .hbtn.ghost{background:transparent;color:var(--ink);}
 #w-hero .hbtn.ghost:hover{background:var(--blue);color:#f6e3dd;}
+#w-hero .hbtn.disabled{opacity:.4;cursor:default;pointer-events:none;}
 .win .bar .x{color:var(--ink);cursor:pointer;font-size:15px;line-height:1;padding:0 4px;opacity:.85;}
 .win .bar .x:hover{opacity:1;}
 .win .bar .x.disabled{opacity:.3;cursor:default;pointer-events:none;}
@@ -209,6 +210,7 @@ body{
 .sfol div{font-size:13px;margin-top:2px;color:var(--ink);letter-spacing:.5px;}
 .sfol:hover svg{transform:translateY(-2px);}
 .sfol:hover div{color:var(--ink);}
+.sfol.disabled{opacity:.4;cursor:default;pointer-events:none;}
 
 /* footer */
 #foot{position:fixed;bottom:9px;left:50%;transform:translateX(-50%);z-index:55;

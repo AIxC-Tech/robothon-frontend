@@ -1,10 +1,8 @@
 import Window from '../Window'
 import { useLang } from '../../context/LangContext'
-import { useWindows } from '../../context/WindowManager'
 
 export default function HeroWindow() {
   const { t } = useLang()
-  const wm = useWindows()
   return (
     <Window id="w-hero" title="welcome.exe" closable={false}>
       <div className="hk">FFAI ROBOTHON SUMMER 2026</div>
@@ -21,7 +19,7 @@ export default function HeroWindow() {
         <a className="hbtn primary" href="https://discord.gg/77FudM2XwM" target="_blank" rel="noreferrer">
           {t('Developer Community', '开发者社群')}
         </a>
-        <a className="hbtn ghost" onClick={() => wm.open('w-leaderboard')}>
+        <a className="hbtn ghost disabled" aria-disabled="true">
           {t('Live Leaderboard', '实时排行榜')}
         </a>
       </div>
