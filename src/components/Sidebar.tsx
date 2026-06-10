@@ -10,7 +10,8 @@ const ITEMS: { en: string; zh: string; o: WinId }[] = [
   { en: 'Timeline', zh: '日程', o: 'w-timeline' },
   { en: 'FAQ', zh: '常见问题', o: 'w-faq' },
   { en: 'Cases', zh: '案例', o: 'w-cases' },
-  { en: 'Leaderboard', zh: '排行榜', o: 'w-leaderboard' },
+  // Leaderboard 入口暂时隐藏（如需恢复，取消下一行注释）
+  // { en: 'Leaderboard', zh: '排行榜', o: 'w-leaderboard' },
 ]
 
 export default function Sidebar() {
