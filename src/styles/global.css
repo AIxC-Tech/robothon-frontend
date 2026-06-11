@@ -148,7 +148,7 @@ body{
 #w-register .c{display:flex;flex-direction:column;padding:0;}
 #chatlog{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;font-size:13px;padding:14px;}
 #chatlog::-webkit-scrollbar{width:5px;}#chatlog::-webkit-scrollbar-thumb{background:rgba(210,140,125,.4);}
-.msg{max-width:85%;padding:8px 11px;border:1px solid var(--line);line-height:1.45;color:var(--ink);}
+.msg{max-width:85%;padding:8px 11px;border:1px solid var(--line);line-height:1.45;color:var(--ink);white-space:pre-wrap;}
 .msg.bot{align-self:flex-start;background:rgba(210,140,125,.06);}
 .msg.bot::before{content:"AI▸ ";color:var(--ink);}
 .msg.me{align-self:flex-end;background:rgba(210,140,125,.2);color:var(--ink);border-color:var(--ink);}
@@ -157,6 +157,9 @@ body{
   font-size:13px;padding:8px 10px;outline:none;}
 .cin input:focus{border-color:var(--ink);}
 .cin input::placeholder{color:rgba(210,140,125,.5);}
+.cin .copy-uuid-btn{flex:1;background:rgba(210,140,125,.12);border:1px solid var(--ink);color:var(--ink);
+  font-family:var(--font);font-size:13px;letter-spacing:.5px;padding:8px 10px;cursor:pointer;transition:.15s;}
+.cin .copy-uuid-btn:hover{background:var(--ink);color:#03130a;}
 .typing::after{content:"▋";color:var(--ink);animation:blink 1s steps(2) infinite;}
 /* click-to-copy participant id inside chat messages */
 #chatlog .copy-id{color:#e8b4a7;text-decoration:underline;text-underline-offset:2px;

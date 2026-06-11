@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import Window from '../Window'
 import { useLang, type Lang } from '../../context/LangContext'
-import { isValidEmail, setUserEmail, setUserUuid } from '../../lib/userSession'
+import { getRegistration, isValidEmail, storeRegistration, type StoredRegistration } from '../../lib/userSession'
 import { submitRegistration, InvalidEmailError } from '../../lib/api'
 
 // Fixed, scripted question flow — no LLM drives the conversation. The backend is
 // called only once, at submit, to validate the email + assign/dedup the UUID.
+// On success the full registration is persisted (localStorage); on a later visit
+// the window shows the saved info, locks input, and offers a "Copy UUID" button.
 interface Copy {
   nickname: string
   agent: (nickname: string) => string
@@ -15,6 +17,8 @@ interface Copy {
   success: (uuid: string) => string
   duplicate: (uuid: string) => string
   error: string
+  registered: (r: StoredRegistration) => string
+  copyUuid: string
 }
 
 const COPY: Record<Lang, Copy> = {
@@ -27,6 +31,9 @@ const COPY: Record<Lang, Copy> = {
     success: (id) => `Registration complete ✓ Your participant ID is ${id}. The contest kicks off June 16 — keep an eye on the live leaderboard!`,
     duplicate: (id) => `You're already registered ✓ Your participant ID is ${id}. See you on the live leaderboard!`,
     error: 'Sorry, something went wrong saving your registration. Please try again in a moment.',
+    registered: (r) =>
+      `You're already registered ✓\n· Nickname: ${r.nickname}\n· Agent: ${r.agent}\n· Direction: ${r.direction}\n· Email: ${r.email}\nYour participant ID is ${r.uuid}`,
+    copyUuid: 'Copy UUID',
   },
   zh: {
     nickname: '你好，欢迎报名 FFAI Robothon。我是 AI 报名助手。请问你想使用的参赛昵称是？',
@@ -37,12 +44,15 @@ const COPY: Record<Lang, Copy> = {
     success: (id) => `报名成功 ✓ 你的参赛 ID 是：${id}。比赛将于 6 月 16 日开赛，记得关注实时排行榜！`,
     duplicate: (id) => `你已经报名过了 ✓ 你的参赛 ID 是：${id}。记得关注实时排行榜！`,
     error: '抱歉，保存报名时出错了，请稍后再试。',
+    registered: (r) =>
+      `你已报名 ✓\n· 昵称：${r.nickname}\n· 工具：${r.agent}\n· 方向：${r.direction}\n· 邮箱：${r.email}\n你的参赛 ID 是：${r.uuid}`,
+    copyUuid: '复制 UUID',
   },
 }
 
-const CHAT_PH: Record<Lang, { idle: string; busy: string; done: string }> = {
-  en: { idle: 'Type and press Enter…', busy: 'Submitting…', done: 'Registration complete ✓' },
-  zh: { idle: '输入后回车…', busy: '提交中…', done: '报名已完成 ✓' },
+const CHAT_PH: Record<Lang, { idle: string; busy: string }> = {
+  en: { idle: 'Type and press Enter…', busy: 'Submitting…' },
+  zh: { idle: '输入后回车…', busy: '提交中…' },
 }
 
 interface Msg {
@@ -51,14 +61,11 @@ interface Msg {
   typing?: boolean
 }
 
-// which field we're currently collecting
 type Step = 'nickname' | 'agent' | 'direction' | 'email'
 
-// UUID detection: split keeps the uuid as its own segment; test matches a full uuid
 const UUID_SPLIT = /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i
 const UUID_TEST = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
-// clipboard fallback for environments without navigator.clipboard
 function fallbackCopy(text: string, ack: () => void) {
   const ta = document.createElement('textarea')
   ta.value = text
@@ -78,10 +85,10 @@ function fallbackCopy(text: string, ack: () => void) {
 export default function RegisterWindow() {
   const { lang, t } = useLang()
   const [messages, setMessages] = useState<Msg[]>([])
-  const [disabled, setDisabled] = useState(false)
   const [busy, setBusy] = useState(false)
   const [value, setValue] = useState('')
   const [copiedId, setCopiedId] = useState<string | null>(null)
+  const [registration, setRegistration] = useState<StoredRegistration | null>(null)
   const step = useRef<Step>('nickname')
   const answers = useRef({ nickname: '', agent: '', direction: '', email: '' })
   const logRef = useRef<HTMLDivElement>(null)
@@ -93,12 +100,10 @@ export default function RegisterWindow() {
     if (el) el.scrollTop = el.scrollHeight
   }
 
-  // always keep the newest message in view (no manual scrolling needed)
   useEffect(() => {
     scrollDown()
   }, [messages])
 
-  // type `text` out into a fresh bot bubble
   const botSay = (text: string) => {
     setMessages((m) => [...m, { role: 'bot', text: '', typing: true }])
     let i = 0
@@ -113,6 +118,7 @@ export default function RegisterWindow() {
         }
         return copy
       })
+      scrollDown()
       if (i > text.length && typer.current) {
         clearInterval(typer.current)
         typer.current = null
@@ -120,15 +126,15 @@ export default function RegisterWindow() {
     }, 16)
   }
 
-  // (re)start the flow whenever the language changes
   useEffect(() => {
-    setDisabled(false)
     setBusy(false)
     setValue('')
     setMessages([])
     step.current = 'nickname'
     answers.current = { nickname: '', agent: '', direction: '', email: '' }
-    botSay(COPY[lang].nickname)
+    const saved = getRegistration()
+    setRegistration(saved)
+    botSay(saved ? COPY[lang].registered(saved) : COPY[lang].nickname)
     return () => {
       if (typer.current) clearInterval(typer.current)
     }
@@ -140,12 +146,12 @@ export default function RegisterWindow() {
     setBusy(true)
     try {
       const { uuid, duplicate } = await submitRegistration(answers.current)
-      setUserUuid(uuid)
+      const reg: StoredRegistration = { ...answers.current, uuid }
+      storeRegistration(reg)
       botSay(duplicate ? c.duplicate(uuid) : c.success(uuid))
-      setDisabled(true)
+      setRegistration(reg)
     } catch (err) {
       if (err instanceof InvalidEmailError) {
-        // backend rejected the email — stay on the email step and re-ask
         botSay(c.invalidEmail(answers.current.email))
       } else {
         console.error('[register] submit failed:', err)
@@ -159,7 +165,7 @@ export default function RegisterWindow() {
 
   const send = () => {
     const v = value.trim()
-    if (!v || disabled || busy) return
+    if (!v || busy || registration) return
     const c = COPY[lang]
 
     setMessages((m) => [...m, { role: 'me', text: v }])
@@ -183,17 +189,15 @@ export default function RegisterWindow() {
         break
       case 'email':
         if (!isValidEmail(v)) {
-          botSay(c.invalidEmail(v)) // stay on the email step
+          botSay(c.invalidEmail(v))
           break
         }
         answers.current.email = v
-        setUserEmail(v)
         void submit()
         break
     }
   }
 
-  // copy a participant id to the clipboard, with a brief "copied" acknowledgement
   const copyUuid = (uuid: string) => {
     const ack = () => {
       setCopiedId(uuid)
@@ -206,16 +210,10 @@ export default function RegisterWindow() {
     }
   }
 
-  // render message text, turning any participant UUID into a click-to-copy link
   const renderText = (text: string) =>
     text.split(UUID_SPLIT).map((part, i) =>
       UUID_TEST.test(part) ? (
-        <span
-          key={i}
-          className="copy-id"
-          title={t('Click to copy', '点击复制')}
-          onClick={() => copyUuid(part)}
-        >
+        <span key={i} className="copy-id" title={t('Click to copy', '点击复制')} onClick={() => copyUuid(part)}>
           {copiedId === part ? t('Copied ✓', '已复制 ✓') : part}
         </span>
       ) : (
@@ -223,7 +221,7 @@ export default function RegisterWindow() {
       ),
     )
 
-  const placeholder = disabled ? CHAT_PH[lang].done : busy ? CHAT_PH[lang].busy : CHAT_PH[lang].idle
+  const placeholder = busy ? CHAT_PH[lang].busy : CHAT_PH[lang].idle
 
   return (
     <Window id="w-register" title="register@ffai-robothon — AI Registration Assistant">
@@ -235,21 +233,26 @@ export default function RegisterWindow() {
         ))}
       </div>
       <div className="cin">
-        <input
-          ref={inputRef}
-          type="text"
-          autoComplete="off"
-          disabled={disabled}
-          value={value}
-          placeholder={placeholder}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              e.stopPropagation()
-              send()
-            }
-          }}
-        />
+        {registration ? (
+          <button type="button" className="copy-uuid-btn" onClick={() => copyUuid(registration.uuid)}>
+            {copiedId === registration.uuid ? t('Copied ✓', '已复制 ✓') : COPY[lang].copyUuid}
+          </button>
+        ) : (
+          <input
+            ref={inputRef}
+            type="text"
+            autoComplete="off"
+            value={value}
+            placeholder={placeholder}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.stopPropagation()
+                send()
+              }
+            }}
+          />
+        )}
       </div>
     </Window>
   )

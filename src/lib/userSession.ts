@@ -1,13 +1,21 @@
-// Tracks the current visitor's email in sessionStorage so the leaderboard can
-// highlight their own row. Session-scoped on purpose: the email is forgotten
-// when the tab closes.
+// Persists the visitor's completed registration in localStorage so it survives
+// page reloads / new sessions. On the next visit the register window shows the
+// saved info and locks input. The email is also used to highlight the visitor's
+// own row on the leaderboard.
 import { useEffect, useState } from 'react'
 
-const KEY = 'ffai.userEmail'
-const EVENT = 'ffai:userEmail'
-const UUID_KEY = 'ffai.userUuid'
+const REG_KEY = 'ffai.registration'
+const EVENT = 'ffai:registration'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+export interface StoredRegistration {
+  nickname: string
+  agent: string
+  direction: string
+  email: string
+  uuid: string
+}
 
 export function isValidEmail(v: string): boolean {
   return EMAIL_RE.test(v.trim())
@@ -18,43 +26,34 @@ export function normalizeEmail(v: string): string {
   return v.trim().toLowerCase()
 }
 
+/** The completed registration, or null if the visitor hasn't registered here. */
+export function getRegistration(): StoredRegistration | null {
+  try {
+    const raw = localStorage.getItem(REG_KEY)
+    if (!raw) return null
+    const r = JSON.parse(raw) as StoredRegistration
+    return r && typeof r.uuid === 'string' && r.uuid ? r : null
+  } catch {
+    return null
+  }
+}
+
+export function storeRegistration(reg: StoredRegistration): void {
+  try {
+    localStorage.setItem(REG_KEY, JSON.stringify(reg))
+  } catch {
+    // localStorage unavailable (private mode / blocked) — degrade silently.
+  }
+  // notify same-tab listeners (the native `storage` event only fires cross-tab)
+  window.dispatchEvent(new CustomEvent(EVENT))
+}
+
+/** Normalized email of the stored registration (for leaderboard self-row highlight). */
 export function getUserEmail(): string {
-  try {
-    return sessionStorage.getItem(KEY) ?? ''
-  } catch {
-    return ''
-  }
+  return normalizeEmail(getRegistration()?.email ?? '')
 }
 
-export function setUserEmail(email: string): void {
-  const norm = normalizeEmail(email)
-  try {
-    sessionStorage.setItem(KEY, norm)
-  } catch {
-    // sessionStorage unavailable (private mode / blocked) — degrade silently.
-  }
-  // Notify same-tab listeners (the native `storage` event only fires cross-tab).
-  window.dispatchEvent(new CustomEvent(EVENT, { detail: norm }))
-}
-
-/** The participant id assigned by the backend on registration (session-scoped). */
-export function getUserUuid(): string {
-  try {
-    return sessionStorage.getItem(UUID_KEY) ?? ''
-  } catch {
-    return ''
-  }
-}
-
-export function setUserUuid(uuid: string): void {
-  try {
-    sessionStorage.setItem(UUID_KEY, uuid)
-  } catch {
-    // sessionStorage unavailable — degrade silently.
-  }
-}
-
-/** React hook returning the current (normalized) session email, kept in sync. */
+/** React hook returning the current (normalized) registered email, kept in sync. */
 export function useUserEmail(): string {
   const [email, setEmail] = useState(getUserEmail)
 
