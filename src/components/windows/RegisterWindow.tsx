@@ -28,7 +28,7 @@ const COPY: Record<Lang, Copy> = {
     direction: 'Which direction do you want to tackle? (teleop / long-horizon tasks / data collection / dexterous hand / real-world scenarios, or freestyle)',
     email: 'Last one — what email should we send your score notifications to?',
     invalidEmail: (v) => `“${v}” doesn't look like a valid email. Please enter a valid email address (e.g. you@example.com).`,
-    success: (id) => `Registration complete ✓ Your participant ID is ${id}. The contest kicks off June 16 — keep an eye on the live leaderboard!`,
+    success: (id) => `Registration complete ✓ Your participant ID is ${id}. You'll need it when you submit, so keep it safe. The contest kicks off June 16 — follow the guide to open a GitHub PR with this ID attached.`,
     duplicate: (id) => `You're already registered ✓ Your participant ID is ${id}. See you on the live leaderboard!`,
     error: 'Sorry, something went wrong saving your registration. Please try again in a moment.',
     registered: (r) =>
@@ -41,7 +41,7 @@ const COPY: Record<Lang, Copy> = {
     direction: '你想挑战的方向是？(遥操作 / 长程任务 / 数据采集 / 灵巧手 / 实际场景，或自由发挥)',
     email: '最后留一个邮箱地址吧，方便我们通知你成绩。',
     invalidEmail: (v) => `「${v}」不是有效的邮箱地址，请重新输入正确的邮箱（如 you@example.com）。`,
-    success: (id) => `报名成功 ✓ 你的参赛 ID 是：${id}。比赛将于 6 月 16 日开赛，记得关注实时排行榜！`,
+    success: (id) => `报名成功 ✓ 你的参赛 ID 是 ${id}。提交作品时要用，请保存好。6 月 16 日开赛，届时按指引提交 GitHub PR、附上这个 ID 即可。`,
     duplicate: (id) => `你已经报名过了 ✓ 你的参赛 ID 是：${id}。记得关注实时排行榜！`,
     error: '抱歉，保存报名时出错了，请稍后再试。',
     registered: (r) =>
