@@ -32,7 +32,7 @@ const COPY: Record<Lang, Copy> = {
     duplicate: (id) => `You're already registered ✓ Your participant ID is ${id}. See you on the live leaderboard!`,
     error: 'Sorry, something went wrong saving your registration. Please try again in a moment.',
     registered: (r) =>
-      `You're already registered ✓\n· Nickname: ${r.nickname}\n· Agent: ${r.agent}\n· Direction: ${r.direction}\n· Email: ${r.email}\nYour participant ID is ${r.uuid}`,
+      `You're already registered ✓\n· Nickname: ${r.nickname}\n· Agent: ${r.agent}\n· Direction: ${r.direction}\n· Email: ${r.email}\nYour participant ID is ${r.uuid}\nSubmit a GitHub PR with this participant ID.`,
     copyUuid: 'Copy UUID',
   },
   zh: {
@@ -45,7 +45,7 @@ const COPY: Record<Lang, Copy> = {
     duplicate: (id) => `你已经报名过了 ✓ 你的参赛 ID 是：${id}。记得关注实时排行榜！`,
     error: '抱歉，保存报名时出错了，请稍后再试。',
     registered: (r) =>
-      `你已报名 ✓\n· 昵称：${r.nickname}\n· 工具：${r.agent}\n· 方向：${r.direction}\n· 邮箱：${r.email}\n你的参赛 ID 是：${r.uuid}`,
+      `你已报名 ✓\n· 昵称：${r.nickname}\n· 工具：${r.agent}\n· 方向：${r.direction}\n· 邮箱：${r.email}\n你的参赛 ID 是：${r.uuid}\n提交 GitHub PR、附上参赛 ID`,
     copyUuid: '复制 UUID',
   },
 }
