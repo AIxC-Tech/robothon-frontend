@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useLang } from '../context/LangContext'
 
-// 提交 6.16 00:00 (UTC+8) 开启；提交 6.21 24:00 (UTC+8) 截止
-const REG_OPEN = Date.UTC(2026, 5, 15, 16, 0, 0) // 6.16 00:00 UTC+8 == 6.15 16:00 UTC
-const REG_CLOSE = Date.UTC(2026, 5, 21, 16, 0, 0) // 6.21 24:00 UTC+8 == 6.21 16:00 UTC
+// 提交 6.17 00:00 (UTC+8) 开启；提交 6.22 24:00 (UTC+8) 截止
+const REG_OPEN = Date.UTC(2026, 5, 16, 16, 0, 0) // 6.17 00:00 UTC+8 == 6.16 16:00 UTC
+const REG_CLOSE = Date.UTC(2026, 5, 22, 16, 0, 0) // 6.22 24:00 UTC+8 == 6.22 16:00 UTC
 
 export default function Countdown() {
   const { lang, t } = useLang()
