@@ -33,7 +33,7 @@ export default function TimelineWindow() {
   return (
     <Window id="w-timeline" title="timeline.sched" bodyClassName="c ctext">
       <div className="winh">{t('Timeline', '日程')}</div>
-      <p style={{ opacity: 0.7, marginBottom: 16 }}>{t('// All times are UTC+8', '// 所有时间均为 UTC+8')}</p>
+      <p style={{ opacity: 0.7, marginBottom: 16 }}>{t('// All times are UTC-8 (LA time)', '// 所有时间均为 UTC-8（洛杉矶时间）')}</p>
       <div className="tl">
         {ITEMS.map((it, i) => (
           <div className="it" key={i}>
