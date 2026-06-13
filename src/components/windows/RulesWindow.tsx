@@ -42,6 +42,11 @@ export default function RulesWindow() {
           </div>
         )
       })}
+      <p className="rules-legal-note">
+        {t('This is a quick overview — see the full ', '以上为玩法概览；完整法律条款见')}
+        <a href="/official-rules">{t('Official Rules', '《官方规则》')}</a>
+        {t(' for the binding terms.', '。')}
+      </p>
     </Window>
   )
 }

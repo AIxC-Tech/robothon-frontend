@@ -7,6 +7,7 @@ import AuthStrip from './components/AuthStrip'
 import Countdown from './components/Countdown'
 import Sidebar from './components/Sidebar'
 import BottomBar from './components/BottomBar'
+import OfficialRules from './components/OfficialRules'
 
 import HeroWindow from './components/windows/HeroWindow'
 import BannerWindow from './components/windows/BannerWindow'
@@ -26,9 +27,22 @@ import ScriptsWindow from './components/windows/ScriptsWindow'
 import DecryptWindow from './components/windows/DecryptWindow'
 import DataWindow from './components/windows/DataWindow'
 
+// Privacy Policy lives on the Official Rules page (Privacy section); the docx
+// [PRIVACY POLICY URL] points to robothon.ff.com/official-rules per the organizer.
+const PRIVACY_POLICY_URL = '/official-rules#privacy'
+
 function Footer() {
   const { t } = useLang()
-  return <div id="foot">{t('© 2026 FFAI Robothon · Embodied-AI Hackathon', '© 2026 FFAI Robothon · 具身智能黑客松')}</div>
+  return (
+    <div id="foot">
+      <span>{t('© 2026 FFAI Robothon · Embodied-AI Hackathon', '© 2026 FFAI Robothon · 具身智能黑客松')}</span>
+      <span className="foot-links">
+        <a href="/official-rules">{t('Official Rules', '官方规则')}</a>
+        <span className="foot-sep">·</span>
+        <a href={PRIVACY_POLICY_URL}>{t('Privacy Policy', '隐私政策')}</a>
+      </span>
+    </div>
+  )
 }
 
 function AppShell() {
@@ -87,11 +101,21 @@ function AppShell() {
 }
 
 export default function App() {
+  // Lightweight routing: the standalone Official Rules page lives at a stable URL
+  // (must stay reachable during the Contest and for 1 year after). No router lib —
+  // vercel.json rewrites /official-rules to index.html and we branch on the path.
+  const path = window.location.pathname.replace(/\/+$/, '')
+  const isOfficialRules = path === '/official-rules'
+
   return (
     <LangProvider>
-      <WindowManagerProvider>
-        <AppShell />
-      </WindowManagerProvider>
+      {isOfficialRules ? (
+        <OfficialRules />
+      ) : (
+        <WindowManagerProvider>
+          <AppShell />
+        </WindowManagerProvider>
+      )}
     </LangProvider>
   )
 }

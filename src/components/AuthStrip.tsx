@@ -65,7 +65,7 @@ export default function AuthStrip() {
       <div className="a-row">
         <span className="a-dot" />
         <span className="a-status">{t('Registration Open', '报名进行中')}</span>
-        <span className="a-pool">{t(' · 8,000 USDC Prize Pool', ' · 8,000 USDC 奖池')}</span>
+        <span className="a-pool">{t(' · 7,999 USDC Prize Pool', ' · 7,999 USDC 奖池')}</span>
       </div>
       <pre id="codetype">
         <code>{text}</code>

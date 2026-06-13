@@ -2,13 +2,13 @@ import Window from '../Window'
 import { useLang } from '../../context/LangContext'
 
 const AWARDS: { en: string; zh: string; slots: string; amount: string; subtotal: string }[] = [
-  { en: '1st Place', zh: '冠军', slots: '1', amount: '3,000', subtotal: '3,000' },
-  { en: '2nd Place', zh: '亚军', slots: '1', amount: '1,500', subtotal: '1,500' },
-  { en: '3rd Place', zh: '季军', slots: '1', amount: '800', subtotal: '800' },
-  { en: 'Excellence Award (4th–8th)', zh: '优秀作品奖（第 4–8 名）', slots: '5', amount: '300', subtotal: '1,500' },
-  { en: 'Best Beginner Project', zh: '最佳新手作品', slots: '1', amount: '400', subtotal: '400' },
-  { en: 'Best Human-AI Collaboration', zh: '最佳人机协作', slots: '1', amount: '400', subtotal: '400' },
-  { en: "Judges' Choice Award", zh: '评审团惊喜奖', slots: '1', amount: '400', subtotal: '400' },
+  { en: '1st Place', zh: '冠军', slots: '1', amount: '1,500', subtotal: '1,500' },
+  { en: '2nd Place', zh: '亚军', slots: '1', amount: '599', subtotal: '599' },
+  { en: '3rd Place', zh: '季军', slots: '1', amount: '550', subtotal: '550' },
+  { en: 'Excellence Award (4th–11th)', zh: '优秀作品奖（第 4–11 名）', slots: '8', amount: '500', subtotal: '4,000' },
+  { en: 'Best Beginner Project', zh: '最佳新手作品', slots: '1', amount: '450', subtotal: '450' },
+  { en: 'Best Human-AI Collaboration', zh: '最佳人机协作', slots: '1', amount: '450', subtotal: '450' },
+  { en: "Judges' Choice Award", zh: '评审团之选', slots: '1', amount: '450', subtotal: '450' },
 ]
 
 export default function PrizesWindow() {
@@ -18,10 +18,10 @@ export default function PrizesWindow() {
       <div className="winh">{t('Prize Breakdown', '奖金分配')}</div>
       <p style={{ marginBottom: 12 }}>
         {t('Total pool ', '总奖池 ')}
-        <b style={{ color: 'var(--ink)' }}>8,000 USDC</b>
+        <b style={{ color: 'var(--ink)' }}>7,999 USDC</b>
         {t(
-          ' · 11 prizes in total. Placement prizes are based on total score; special prizes are decided independently by the judges.',
-          ' · 共 11 个名额。名次奖按总分排定；特别奖由评审团独立评出。',
+          ' · 14 prizes in total. Placement prizes are based on total score; special prizes are decided independently by the judges.',
+          ' · 共 14 个名额。名次奖按总分排定；特别奖由评审团独立评出。',
         )}
       </p>
       <table>
@@ -44,9 +44,9 @@ export default function PrizesWindow() {
           ))}
           <tr className="tot">
             <td>{t('Total', '合计')}</td>
-            <td>11</td>
+            <td>14</td>
             <td>—</td>
-            <td>8,000</td>
+            <td>7,999</td>
           </tr>
         </tbody>
       </table>

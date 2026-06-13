@@ -11,7 +11,7 @@ export default function BannerWindow() {
         <h1>FFAI ROBOTHON</h1>
         <div className="sub">{t('SUMMER 2026 · Embodied-AI Hackathon', '2026 Summer · 具身智能黑客松')}</div>
         <div className="usdc">
-          {t('Total pool', '总奖池')} &nbsp; <b>8,000 USDC</b> &nbsp;{t('· 11 slots · 3×AI judges', '· 11 名额 · 3×AI 评审')}
+          {t('Total pool', '总奖池')} &nbsp; <b>7,999 USDC</b> &nbsp;{t('· 14 slots · 3×AI judges', '· 14 名额 · 3×AI 评审')}
         </div>
       </div>
       <svg className="robot" viewBox="0 0 100 110">

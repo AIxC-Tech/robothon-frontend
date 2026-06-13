@@ -4,3 +4,7 @@ dist-ssr
 *.local
 .DS_Store
 .vite
+
+# 部署相关（含服务器 IP / 登录信息，勿提交）
+deploy.sh
+DEPLOY.md
