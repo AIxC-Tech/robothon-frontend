@@ -8,3 +8,6 @@ dist-ssr
 # 部署相关（含服务器 IP / 登录信息，勿提交）
 deploy.sh
 DEPLOY.md
+
+# Cloude-Code-Toolbox 自动扫描报告：每次扫描会重新嵌入 ~/.claude.json 里的 MCP 密钥，勿提交
+.claude/cloude-code-toolbox-mcp-skills-awareness.md
